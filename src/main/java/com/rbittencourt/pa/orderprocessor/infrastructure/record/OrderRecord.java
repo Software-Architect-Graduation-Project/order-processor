@@ -21,6 +21,7 @@ public class OrderRecord {
     private long orderId;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
     @Column(name = "created_on")

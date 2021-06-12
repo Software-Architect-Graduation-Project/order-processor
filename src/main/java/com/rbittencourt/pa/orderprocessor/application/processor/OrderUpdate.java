@@ -10,6 +10,9 @@ public class OrderUpdate {
     private LocalDateTime updateTime;
     private OrderStatus newStatus;
 
+    public OrderUpdate() {
+    }
+
     public OrderUpdate(long orderId, LocalDateTime updateTime, OrderStatus newStatus) {
         this.orderId = orderId;
         this.updateTime = updateTime;
@@ -27,5 +30,5 @@ public class OrderUpdate {
     public OrderStatus getNewStatus() {
         return newStatus;
     }
-
+    
 }

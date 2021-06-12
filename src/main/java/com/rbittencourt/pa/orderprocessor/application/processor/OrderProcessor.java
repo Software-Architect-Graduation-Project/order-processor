@@ -1,6 +1,6 @@
 package com.rbittencourt.pa.orderprocessor.application.processor;
 
-import com.rbittencourt.pa.orderprocessor.infrastructure.order.Order;
+import com.rbittencourt.pa.orderprocessor.infrastructure.order.EcommerceOrder;
 import com.rbittencourt.pa.orderprocessor.infrastructure.order.OrderRepository;
 import com.rbittencourt.pa.orderprocessor.infrastructure.record.OrderRecord;
 import com.rbittencourt.pa.orderprocessor.infrastructure.record.OrderRecordRepository;
@@ -17,8 +17,11 @@ public class OrderProcessor {
     @Autowired
     private OrderRecordRepository orderRecordRepository;
 
-    public void createOrder(Order order) {
+    public void createOrder(EcommerceOrder order) {
         orderRepository.save(order);
+
+        OrderRecord orderRecord = new OrderRecord(order.getId(), order.getStatus(), order.getCreatedOn());
+        orderRecordRepository.save(orderRecord);
     }
 
     @Transactional
