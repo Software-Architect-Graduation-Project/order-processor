@@ -19,7 +19,13 @@ public class PaymentProcessedListener {
     private ObjectMapper objectMapper;
 
     @KafkaListener(topics = "payment_processed", groupId = "foo")
-    public void receiveNewOrder(String message) throws JsonProcessingException {
+    public void paymentProcessed(String message) throws JsonProcessingException {
+        OrderUpdate update = objectMapper.readValue(message, OrderUpdate.class);
+        orderProcessor.updateOrder(update);
+    }
+
+    @KafkaListener(topics = "payment_processing_started", groupId = "foo")
+    public void paymentProcessingStarted(String message) throws JsonProcessingException {
         OrderUpdate update = objectMapper.readValue(message, OrderUpdate.class);
         orderProcessor.updateOrder(update);
     }
