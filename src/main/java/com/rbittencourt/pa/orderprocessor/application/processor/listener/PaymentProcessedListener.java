@@ -1,10 +1,7 @@
 package com.rbittencourt.pa.orderprocessor.application.processor.listener;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rbittencourt.pa.orderprocessor.application.processor.OrderProcessor;
-import com.rbittencourt.pa.orderprocessor.application.processor.OrderUpdate;
-import com.rbittencourt.pa.orderprocessor.infrastructure.order.EcommerceOrder;
+import com.rbittencourt.pa.orderprocessor.application.processor.EcommerceOrderProcessor;
+import com.rbittencourt.pa.orderprocessor.application.processor.EcommerceOrderUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -13,21 +10,16 @@ import org.springframework.stereotype.Component;
 public class PaymentProcessedListener {
 
     @Autowired
-    private OrderProcessor orderProcessor;
+    private EcommerceOrderProcessor ecommerceOrderProcessor;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @KafkaListener(topics = "payment_processed", groupId = "foo")
-    public void paymentProcessed(String message) throws JsonProcessingException {
-        OrderUpdate update = objectMapper.readValue(message, OrderUpdate.class);
-        orderProcessor.updateOrder(update);
+    @KafkaListener(topics = "payment_processed", containerFactory = "orderUpdateKafkaListenerContainerFactory")
+    public void paymentProcessed(EcommerceOrderUpdate update) {
+        ecommerceOrderProcessor.updateOrder(update);
     }
 
-    @KafkaListener(topics = "payment_processing_started", groupId = "foo")
-    public void paymentProcessingStarted(String message) throws JsonProcessingException {
-        OrderUpdate update = objectMapper.readValue(message, OrderUpdate.class);
-        orderProcessor.updateOrder(update);
+    @KafkaListener(topics = "payment_processing_started", containerFactory = "orderUpdateKafkaListenerContainerFactory")
+    public void paymentProcessingStarted(EcommerceOrderUpdate update) {
+        ecommerceOrderProcessor.updateOrder(update);
     }
 
 }

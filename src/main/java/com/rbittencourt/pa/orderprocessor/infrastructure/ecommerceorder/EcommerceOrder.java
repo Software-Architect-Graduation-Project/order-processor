@@ -1,4 +1,4 @@
-package com.rbittencourt.pa.orderprocessor.infrastructure.order;
+package com.rbittencourt.pa.orderprocessor.infrastructure.ecommerceorder;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -30,20 +30,20 @@ public class EcommerceOrder {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private EcommerceOrderStatus status;
 
     public EcommerceOrder() {
-        this.status = OrderStatus.PROCESS_STARTED;
+        this.status = EcommerceOrderStatus.PROCESS_STARTED;
     }
 
     public EcommerceOrder(String clientId, String paymentPlan, String products) {
         this.clientId = clientId;
         this.paymentPlan = paymentPlan;
         this.products = products;
-        this.status = OrderStatus.PROCESS_STARTED;
+        this.status = EcommerceOrderStatus.PROCESS_STARTED;
     }
 
-    public EcommerceOrder(String clientId, String paymentPlan, String products, OrderStatus status) {
+    public EcommerceOrder(String clientId, String paymentPlan, String products, EcommerceOrderStatus status) {
         this.clientId = clientId;
         this.paymentPlan = paymentPlan;
         this.products = products;
@@ -90,11 +90,11 @@ public class EcommerceOrder {
         this.products = products;
     }
 
-    public OrderStatus getStatus() {
+    public EcommerceOrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setStatus(EcommerceOrderStatus status) {
         this.status = status;
     }
 

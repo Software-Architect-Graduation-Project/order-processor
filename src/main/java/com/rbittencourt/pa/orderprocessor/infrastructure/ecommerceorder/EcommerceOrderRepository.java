@@ -1,10 +1,10 @@
-package com.rbittencourt.pa.orderprocessor.infrastructure.order;
+package com.rbittencourt.pa.orderprocessor.infrastructure.ecommerceorder;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-public interface OrderRepository extends JpaRepository<EcommerceOrder, Long> {
+public interface EcommerceOrderRepository extends JpaRepository<EcommerceOrder, Long> {
 
     @Modifying
     @Query(value = "UPDATE ecommerce_order SET status = ?2 WHERE id = ?1", nativeQuery = true)

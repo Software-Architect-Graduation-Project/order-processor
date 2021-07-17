@@ -1,6 +1,6 @@
-package com.rbittencourt.pa.orderprocessor.infrastructure.order;
+package com.rbittencourt.pa.orderprocessor.infrastructure.ecommerceorder;
 
-public enum OrderStatus {
+public enum EcommerceOrderStatus {
 
     PROCESS_STARTED,
     PROCESSING_PAYMENT,

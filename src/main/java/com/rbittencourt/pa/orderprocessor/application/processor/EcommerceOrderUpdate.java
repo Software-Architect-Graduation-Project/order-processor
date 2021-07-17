@@ -1,19 +1,19 @@
 package com.rbittencourt.pa.orderprocessor.application.processor;
 
-import com.rbittencourt.pa.orderprocessor.infrastructure.order.OrderStatus;
+import com.rbittencourt.pa.orderprocessor.infrastructure.ecommerceorder.EcommerceOrderStatus;
 
 import java.time.LocalDateTime;
 
-public class OrderUpdate {
+public class EcommerceOrderUpdate {
 
     private long orderId;
     private LocalDateTime updateTime;
-    private OrderStatus newStatus;
+    private EcommerceOrderStatus newStatus;
 
-    public OrderUpdate() {
+    public EcommerceOrderUpdate() {
     }
 
-    public OrderUpdate(long orderId, LocalDateTime updateTime, OrderStatus newStatus) {
+    public EcommerceOrderUpdate(long orderId, LocalDateTime updateTime, EcommerceOrderStatus newStatus) {
         this.orderId = orderId;
         this.updateTime = updateTime;
         this.newStatus = newStatus;
@@ -27,7 +27,7 @@ public class OrderUpdate {
         return updateTime;
     }
 
-    public OrderStatus getNewStatus() {
+    public EcommerceOrderStatus getNewStatus() {
         return newStatus;
     }
     

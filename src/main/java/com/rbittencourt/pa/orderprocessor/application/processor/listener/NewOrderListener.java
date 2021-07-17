@@ -1,9 +1,7 @@
 package com.rbittencourt.pa.orderprocessor.application.processor.listener;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rbittencourt.pa.orderprocessor.application.processor.OrderProcessor;
-import com.rbittencourt.pa.orderprocessor.infrastructure.order.EcommerceOrder;
+import com.rbittencourt.pa.orderprocessor.application.processor.EcommerceOrderProcessor;
+import com.rbittencourt.pa.orderprocessor.infrastructure.ecommerceorder.EcommerceOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -12,15 +10,11 @@ import org.springframework.stereotype.Component;
 public class NewOrderListener {
 
     @Autowired
-    private OrderProcessor orderProcessor;
+    private EcommerceOrderProcessor ecommerceOrderProcessor;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @KafkaListener(topics = "new_order", groupId = "foo")
-    public void receiveNewOrder(String message) throws JsonProcessingException {
-        EcommerceOrder order = objectMapper.readValue(message, EcommerceOrder.class);
-        orderProcessor.createOrder(order);
+    @KafkaListener(topics = "new_ecommerce_order", containerFactory = "ecommerceOrderKafkaListenerContainerFactory")
+    public void receiveNewOrder(EcommerceOrder order) {
+        ecommerceOrderProcessor.createOrder(order);
     }
 
 }
