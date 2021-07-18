@@ -19,7 +19,7 @@ public class EcommerceOrderProcessor {
     private EcommerceOrderRecordRepository ecommerceOrderRecordRepository;
 
     @Autowired
-    private KafkaTemplate<String, Payment> kafkaTemplate;
+    private KafkaTemplate<String, EcommerceOrder> kafkaTemplate;
 
     public void createOrder(EcommerceOrder order) {
         ecommerceOrderRepository.save(order);
@@ -31,8 +31,8 @@ public class EcommerceOrderProcessor {
     }
 
     private void sendPaymentReceivedEvent(EcommerceOrder order) {
-        Payment payment = new Payment(order.getClientId(), order.getId(), order.getPaymentPlan());
-        kafkaTemplate.send("payment_received", payment);
+//        Payment payment = new Payment(order.getClientId(), order.getId(), order.getPaymentPlan());
+        kafkaTemplate.send("payment_received", order);
     }
 
     @Transactional

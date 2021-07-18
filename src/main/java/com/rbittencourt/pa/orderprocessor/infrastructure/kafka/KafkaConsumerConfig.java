@@ -1,6 +1,5 @@
 package com.rbittencourt.pa.orderprocessor.infrastructure.kafka;
 
-import com.rbittencourt.pa.orderprocessor.application.processor.EcommerceOrderUpdate;
 import com.rbittencourt.pa.orderprocessor.infrastructure.ecommerceorder.EcommerceOrder;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,22 +35,10 @@ public class KafkaConsumerConfig {
         return factory;
     }
 
-    @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, EcommerceOrderUpdate> orderUpdateKafkaListenerContainerFactory() {
-        var consumerFactory = new DefaultKafkaConsumerFactory<>(
-            props(), new StringDeserializer(), new JsonDeserializer<>(EcommerceOrderUpdate.class, false)
-        );
-        var factory = new ConcurrentKafkaListenerContainerFactory<String, EcommerceOrderUpdate>();
-
-        factory.setConsumerFactory(consumerFactory);
-
-        return factory;
-    }
-
     private Map<String, Object> props() {
         Map<String, Object> props = new HashMap<>();
         props.put(BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
-        props.put(GROUP_ID_CONFIG, "group");
+        props.put(GROUP_ID_CONFIG, "group-order-processor");
 
         return props;
     }
