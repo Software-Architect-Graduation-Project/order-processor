@@ -19,6 +19,7 @@ dependencies {
 	implementation 'org.postgresql:postgresql:42.2.20'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.3'
+	runtimeOnly 'org.flywaydb:flyway-core:7.14.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
