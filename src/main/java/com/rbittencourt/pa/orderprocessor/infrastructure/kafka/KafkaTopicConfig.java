@@ -25,12 +25,12 @@ public class KafkaTopicConfig {
 
     @Bean
     public NewTopic newOrder() {
-        return new NewTopic("new_ecommerce_order", 1, (short) 1);
+        return new NewTopic("new_ecommerce_order", 2, (short) 1);
     }
 
     @Bean
     public NewTopic paymentProcessed() {
-        return new NewTopic("payment_processed", 1, (short) 1);
+        return new NewTopic("payment_processed", 2, (short) 1);
     }
 
 }
